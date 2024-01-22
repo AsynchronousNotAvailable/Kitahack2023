@@ -1,0 +1,224 @@
+import { Fragment, useState, useEffect } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link, useLocation } from "react-router-dom";
+
+const Navigation = [
+    { name: "Dashboard", href: "/", current: false },
+    { name: "Chatbot", href: "/about", current: false },
+];
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+}
+
+export default function Navbar() {
+    const [navigation, setNavigation] = useState(Navigation);
+    const location = useLocation();
+
+    useEffect(() => {
+        // Update the current state based on the current path
+        setNavigation((prevNavigation) => {
+            return prevNavigation.map((item) => ({
+                ...item,
+                current: item.href === location.pathname,
+            }));
+        });
+    }, [location]);
+
+    const scrollToContact = () => {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
+    return (
+        <Disclosure
+            as="nav"
+            className="bg-gray-800 absolute w-full z-40 sticky text-white"
+        >
+            {({ open }) => (
+                <>
+                    <div
+                        id="drawer-contact"
+                        class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full w-80 bg-gray-800"
+                        tabindex="-1"
+                        aria-labelledby="drawer-contact-label"
+                    >
+                        <h5
+                            id="drawer-label"
+                            class="inline-flex items-center mb-6 text-base font-semibold  text-white uppercase "
+                        >
+                            <svg
+                                class="w-4 h-4 me-2.5"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 16"
+                            >
+                                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                            </svg>
+                            Collection
+                        </h5>
+                        <button
+                            type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="14"
+                                width="14"
+                                viewBox="0 0 512 512"
+                            >
+                                <path
+                                    fill="#ffffff"
+                                    d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160H352c-17.7 0-32 14.3-32 32s14.3 32 32 32H463.5c0 0 0 0 0 0h.4c17.7 0 32-14.3 32-32V80c0-17.7-14.3-32-32-32s-32 14.3-32 32v35.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1V432c0 17.7 14.3 32 32 32s32-14.3 32-32V396.9l17.6 17.5 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352H160c17.7 0 32-14.3 32-32s-14.3-32-32-32H48.4c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z"
+                                />
+                            </svg>
+                            <span class="sr-only">Close menu</span>
+                        </button>
+                        <div class=" bg-gray-800">
+                            <ul class="space-y-2 font-medium">
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="flex items-center p-2 text-gray-900 rounded-lg  bg-white  hover:bg-gray-100 "
+                                    >
+                                        <svg
+                                            class="w-5 h-5 text-gray-400 transition duration-75 group-hover:text-black "
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 22 21"
+                                        >
+                                            <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                            <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                                        </svg>
+                                        <span class="ms-3">Dashboard</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="flex items-center p-2 text-gray-900 rounded-lg bg-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    >
+                                        <svg
+                                            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 18"
+                                        >
+                                            <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                                        </svg>
+                                        <span class="flex-1 ms-3 whitespace-nowrap">
+                                            Users
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="flex items-center p-2 text-gray-900 rounded-lg bg-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    >
+                                        <svg
+                                            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 18 20"
+                                        >
+                                            <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                                        </svg>
+                                        <span class="flex-1 ms-3 whitespace-nowrap">
+                                            Products
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block"
+                        >
+                            Send message
+                        </button>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                            <a href="#" class="hover:underline">
+                                enquiry@visionone.com.my
+                            </a>
+                        </p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <a href="#" class="hover:underline">
+                                +60 3 7733 2858
+                            </a>
+                        </p>
+                    </div>
+
+                    <div
+                        className="font-poppins mx-auto px-2 sm:px-6 lg:px-8"
+                        id="navbar"
+                    >
+                        <div className="relative flex h-20 items-center justify-between">
+                            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                                {/* company logo */}
+                                <div className="flex flex-shrink-0 items-center gap-1">
+                                    <a href="/">
+                                        <img
+                                            className="h-7 w-auto"
+                                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                            alt="Your Company"
+                                        />
+                                    </a>
+                                    <span className="text-lg font-semibold">
+                                        OpenSauce
+                                    </span>
+                                </div>
+
+                                <div className="hidden sm:ml-6 sm:block">
+                                    <button
+                                        type="button"
+                                        data-drawer-target="drawer-contact"
+                                        data-drawer-show="drawer-contact"
+                                        aria-controls="drawer-contact"
+                                        class="text-white bg-blue-500 hover:bg-purple-500 duration-150 font-medium rounded-xl text-md px-5 py-3"
+                                    >
+                                        Show Collections
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="hidden sm:ml-6 sm:block">
+                                <div className="flex space-x-6">
+                                    {navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.href}
+                                            className={classNames(
+                                                item.current
+                                                    ? "bg-gray-900 text-white"
+                                                    : "text-black-300 hover:bg-gray-700 hover:text-white duration-300",
+                                                "rounded-lg px-3 py-3 text-md font-medium "
+                                            )}
+                                            aria-current={
+                                                item.current
+                                                    ? "page"
+                                                    : undefined
+                                            }
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+        </Disclosure>
+    );
+}
