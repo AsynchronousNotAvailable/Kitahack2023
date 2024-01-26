@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Chatbot = () => {
     const [prompt, setPrompt] = useState("");
@@ -10,6 +11,48 @@ const Chatbot = () => {
         },
     ]);
 
+    const [chatId, setChatId] = useState("");
+    // const chatId = "xYjdnbogCKnArWBmTr8f";
+
+    // Function to save chatId to local storage
+    const saveChatIdToLocalStorage = (id) => {
+        console.log(id, "saved to local storage")
+        localStorage.setItem("chatId", id);
+    };
+
+    // Function to retrieve chatId from local storage
+    const getChatIdFromLocalStorage = () => {
+        return localStorage.getItem("chatId");
+    };
+
+    const startNewChat = async () => {
+        try {
+            const response = await axios.post('/kitaApp/initialize_chat');
+            
+            if (response.status === 200) {
+                const sessionId = response.data["query_id"];
+                console.log("New chat started");
+                // Notify user that chat has been started
+                console.log(sessionId);
+                setChatId(sessionId);
+
+                // Save chatId to local storage
+                saveChatIdToLocalStorage(sessionId);
+
+                toast.success("New chat started!");
+                setResponses([
+                    {
+                        text: "Hi! How can I assist you today?",
+                        type: "RESPONSE",
+                    },
+                ]);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+
     const messagesEndRef = useRef(null);
     
     const scrollToBottom = () => {
@@ -17,6 +60,11 @@ const Chatbot = () => {
     };
 
     useEffect(() => {
+        const storedChatId = getChatIdFromLocalStorage();
+        if (storedChatId) {
+            setChatId(storedChatId);
+            console.log(storedChatId);
+        }
         scrollToBottom();
     }, [responses]);
 
@@ -27,13 +75,14 @@ const Chatbot = () => {
         // Display user's prompt
         setResponses([...responses, { text: prompt, type: "PROMPT" }]);
         const requestBody = {
-            user_prompt: prompt
+            "user_prompt": prompt,
+            "query_id": chatId
         }
         setPrompt("");
         try {
             const chatBotResponse = await axios.post('http://localhost:8000/kitaApp/chatbot', requestBody);
             console.log(chatBotResponse.data.message);
-            const finalResponse = chatBotResponse.data.message;
+            const finalResponse = chatBotResponse.data["response"];
             setResponses((prevResponses) => [
                 ...prevResponses,
                 { text: finalResponse, type: "RESPONSE" },
@@ -90,6 +139,14 @@ const Chatbot = () => {
                 <div ref={messagesEndRef} />
             </div>
             <div className="rounded-lg">
+                <button
+                    // rectanglular filled button
+                    // className="border-2 border-black rounded-full h-14 w-fit-content mb-4" filled button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
+                    onClick={() => startNewChat()}
+                >
+                    New Chat
+                </button>
                 <form className="flex flex-row">
                     <input
                         autoFocus

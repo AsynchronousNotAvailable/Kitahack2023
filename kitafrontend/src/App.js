@@ -12,6 +12,8 @@ import Fetch from "./Pages/Fetch";
 import Update from "./components/Update";
 import Chatbot from "./Pages/Chatbot";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     const [selectedCollection, setSelectedCollection] = useState();
@@ -30,6 +32,7 @@ function App() {
     };
     return (
         <BrowserRouter>
+            <ToastContainer />
             <div className=" ">
                 <Navbar
                     selectedCollection={selectedCollection}
