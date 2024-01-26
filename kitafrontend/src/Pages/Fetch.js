@@ -80,10 +80,11 @@ function Fetch({ selectedCollection }) {
         onSearchChange,
     }) => {
         return (
-            <div className="flex flex-1 items-end justify-end">
+            <div className="flex flex-1 items-center justify-end gap-3">
                 <button
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage === 1}
+                    className="px-5 py-2.5 focus:ring-4 focus:ring-blue-300 bg-[#7B61FF] hover:bg-blue-500 rounded-lg font-medium cursor-pointer"
                 >
                     &lt;
                 </button>
@@ -99,6 +100,7 @@ function Fetch({ selectedCollection }) {
                 <button
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
+                    className="px-5 py-2.5 focus:ring-4 focus:ring-blue-300 bg-[#7B61FF] hover:bg-blue-500 rounded-lg font-medium cursor-pointer"
                 >
                     &gt;
                 </button>
@@ -144,7 +146,7 @@ function Fetch({ selectedCollection }) {
                                 </div>
 
                                 {collectionData.length > 0 ? (
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col gap-5">
                                         {collectionData && renderPagination()}{" "}
                                         {/* Updated class */}
                                         <table className="w-full">

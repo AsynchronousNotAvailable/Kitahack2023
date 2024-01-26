@@ -29,8 +29,9 @@ const Chatbot = () => {
         const requestBody = {
             user_prompt: prompt
         }
+        setPrompt("");
         try {
-            const chatBotResponse = await axios.post('/kitaApp/chatbot', requestBody);
+            const chatBotResponse = await axios.post('http://localhost:8000/kitaApp/chatbot', requestBody);
             console.log(chatBotResponse.data.message);
             const finalResponse = chatBotResponse.data.message;
             setResponses((prevResponses) => [
