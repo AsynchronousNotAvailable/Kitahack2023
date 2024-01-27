@@ -27,7 +27,7 @@ const Chatbot = () => {
 
     const startNewChat = async () => {
         try {
-            const response = await axios.post('/kitaApp/initialize_chat');
+            const response = await axios.post('http://localhost:8000//kitaApp/initialize_chat');
             
             if (response.status === 200) {
                 const sessionId = response.data["query_id"];

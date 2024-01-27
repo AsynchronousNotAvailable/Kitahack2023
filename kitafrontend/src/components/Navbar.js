@@ -44,7 +44,7 @@ export default function Navbar({selectedCollection, setSelectedCollection}) {
     useEffect(() => {
         syncDatabase();
         
-        console.log("collections:", collections);
+        // console.log("collections:", collections);
     }, []);
 
     const syncDatabase = async () => {
@@ -57,6 +57,8 @@ export default function Navbar({selectedCollection, setSelectedCollection}) {
         const existingCollections = metadataSnapshot.docs.map(
             (doc) => doc.data().name
         );
+
+        console.log("Existing Collection: " + existingCollections);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setCollections(existingCollections);
 
@@ -133,7 +135,7 @@ export default function Navbar({selectedCollection, setSelectedCollection}) {
                                                             selectedCollection ===
                                                             collectionName
                                                                 ? "bg-[#6366F1]"
-                                                                : "bg-white"
+                                                                : "bg-gray-200"
                                                         } flex items-center px-4 py-2 gap-2 text-black rounded-lg`}
                                                     >
                                                         <svg

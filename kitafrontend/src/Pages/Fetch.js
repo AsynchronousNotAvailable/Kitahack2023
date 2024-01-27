@@ -119,7 +119,7 @@ function Fetch({ selectedCollection }) {
         }
     };
 
-    const tableCellStyle = "border px-4 py-2 text-center"; // Example styling
+    const tableCellStyle = "border bg-white px-4 py-2 text-center"; // Example styling
     const tableHeaderStyle =
         "border px-4 py-2 font-bold bg-[#E8EAFF] text-center"; // Example styling
 
@@ -138,7 +138,7 @@ function Fetch({ selectedCollection }) {
                                     <Link to="update">
                                         <button
                                             type="submit"
-                                            class="text-black bg-[#7B61FF] hover:bg-blue-500 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 "
+                                            class="text-black bg-[#7B61FF] hover:bg-blue-500 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 "
                                         >
                                             + new record
                                         </button>

@@ -137,10 +137,11 @@ function Create({
         onSearchChange,
     }) => {
         return (
-            <div className="min-h-min flex flex-1 justify-end">
+            <div className="min-h-min flex flex-1 justify-end gap-3">
                 <button
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage === 1}
+                    className="px-5 py-2.5 focus:ring-4 focus:ring-blue-300 bg-[#7B61FF] hover:bg-blue-500 rounded-lg font-medium cursor-pointer"
                 >
                     &lt;
                 </button>
@@ -156,6 +157,7 @@ function Create({
                 <button
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
+                    className="px-5 py-2.5 focus:ring-4 focus:ring-blue-300 bg-[#7B61FF] hover:bg-blue-500 rounded-lg font-medium cursor-pointer"
                 >
                     &gt;
                 </button>

@@ -29,7 +29,7 @@ def generate_context(items):
         "You are a database bot. Database chat bot is a large language model to help with warehouse management system. "
         "You assist employees in finding the best suitable items and details in the stock database."
         "If database bot is asked about data that is not available in the database, it must respond with 'No products in the database.'"
-        "If WaiterBot is asked about anything other than finding the data in the database, it must respond with 'I am a database chatbot.' \n\n"
+        "If databaseBot is asked about anything other than finding the data in the database, it must respond with 'I am a database chatbot.' \n\n"
     )
     for item in items:
         context += f"\nItem {items.index(item) + 1}: "
