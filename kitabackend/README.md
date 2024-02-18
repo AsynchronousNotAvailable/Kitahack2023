@@ -1,7 +1,5 @@
 # Starting A Django Server
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Pre-requisite
 Make sure to install all the required packages and dependencies in local machine using `pip install`
 
